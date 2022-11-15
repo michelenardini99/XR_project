@@ -4,17 +4,20 @@ import * as THREE from 'https://unpkg.com/three@0.146.0/build/three.module.js';
 document.addEventListener("DOMContentLoaded", checkARSessionSupported());
 
 let camera, scene, renderer;
+let control;
 
 function initializeScene(){
 
     const { devicePixelRatio, innerHeight, innerWidth } = window;
     
+    //init renderer
     renderer = new THREE.WebGLRenderer({alpha: true,
                                             antialias: true});
     
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(devicePixelRatio);
 
+    //Provides access to the WebXR related interface of the renderer.
     renderer.xr.setEnable=true;
 
     const title = document.getElementById("title");
@@ -40,6 +43,7 @@ function startScene(){
     camera.position.set(1, 0, 5);
 
     const renderLoop = () => {
+
         // Rotate box
         cube.rotation.y += 0.01;
         cube.rotation.x += 0.01;
