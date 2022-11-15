@@ -1,15 +1,18 @@
 import * as THREE from 'https://unpkg.com/three@0.146.0/build/three.module.js';
 
 
-document.addEventListener("DOMContentLoaded", checkARSessioSupported());
+document.addEventListener("DOMContentLoaded", checkARSessionSupported());
+
+let camera, scene, renderer;
 
 function initializeScene(){
 
     const { devicePixelRatio, innerHeight, innerWidth } = window;
     
-    const renderer = new THREE.WebGLRenderer({alpha: true});
+    renderer = new THREE.WebGLRenderer({alpha: true,
+                                            antialias: true});
     
-    renderer.setSize(innerWidth, innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(devicePixelRatio);
 
     renderer.xr.setEnable=true;
@@ -18,11 +21,11 @@ function initializeScene(){
     title.after(renderer.domElement);
     document.getElementById("enter-ar").textContent = "Stop AR";
 
-    startScene(renderer);
+    startScene();
 }
 
-function startScene(renderer){
-    const scene = new THREE.Scene();
+function startScene(){
+    scene = new THREE.Scene();
     
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial({color: "#0000FF"});
@@ -33,7 +36,7 @@ function startScene(renderer){
     cube.position.set(0, 0, -2);
     cube.rotation.set(0, Math.PI/4, 0);
 
-    const camera = new THREE.PerspectiveCamera();
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
     camera.position.set(1, 1, 5);
 
     const renderLoop = () => {
@@ -52,7 +55,7 @@ function startScene(renderer){
 
 }
 
-function checkARSessioSupported() {
+function checkARSessionSupported() {
     const isArSessionSupported = navigator.xr 
                                 && navigator.xr.isSessionSupported
                                 && navigator.xr.isSessionSupported("immersive-ar");
