@@ -1,14 +1,17 @@
 import * as THREE from 'https://unpkg.com/three@0.146.0/build/three.module.js';
+import {ARButton} from 'https://unpkg.com/three@0.146.0/examples/jsm/webxr/ARButton.js';
 
+let camera, scene, renderer;
 
 document.addEventListener("DOMContentLoaded", checkARSessionSupported());
 
-let camera, scene, renderer;
-let control;
 
 function initializeScene(){
 
     const { devicePixelRatio, innerHeight, innerWidth } = window;
+
+    const container = document.createElement("div");
+    document.body.appendChild(container);
     
     //init renderer
     renderer = new THREE.WebGLRenderer({alpha: true,
@@ -20,9 +23,11 @@ function initializeScene(){
     //Provides access to the WebXR related interface of the renderer.
     renderer.xr.setEnable=true;
 
+    container.appendChild(renderer.domElement);
+
     const title = document.getElementById("title");
     title.after(renderer.domElement);
-    document.getElementById("enter-ar").textContent = "Stop AR";
+
 
     startScene();
 }
@@ -42,16 +47,9 @@ function startScene(){
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
     camera.position.set(1, 0, 5);
 
-    const renderLoop = () => {
-
-        // Rotate box
-        cube.rotation.y += 0.01;
-        cube.rotation.x += 0.01;
-    
-        renderer.render(scene, camera);
-      }
-      
-      renderer.setAnimationLoop(renderLoop);
+    const button = ARButton.createButton(renderer);
+    console.log(button);
+    document.body.appendChild(button);
 
 }
 
@@ -61,9 +59,17 @@ function checkARSessionSupported() {
                                 && navigator.xr.isSessionSupported("immersive-ar");
     if(isArSessionSupported){
         console.log("Ar supported");
-        document.getElementById("enter-ar").addEventListener("click",initializeScene);
+        initializeScene();
+        animate();
     }else{
         console.log("AR not supported");
-        document.getElementById("enter-ar").textContent = "AR not supported";
     }
+}
+
+function animate(){
+    renderer.setAnimationLoop(render);
+}
+
+function render(){
+    renderer.render(scene, camera);
 }
