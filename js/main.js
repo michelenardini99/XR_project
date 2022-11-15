@@ -37,18 +37,14 @@ function startScene(){
     cube.rotation.set(0, Math.PI/4, 0);
 
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
-    camera.position.set(1, 1, 5);
+    camera.position.set(1, 0, 5);
 
     const renderLoop = () => {
         // Rotate box
         cube.rotation.y += 0.01;
         cube.rotation.x += 0.01;
     
-        if (renderer.xr.isPresenting) {
-          renderer.render(scene, camera);
-        }else{
-            renderer.render(scene, camera);
-        }
+        renderer.render(scene, camera);
       }
       
       renderer.setAnimationLoop(renderLoop);
