@@ -19,7 +19,7 @@ function initializeScene(){
     camera.position.set(1, 1, 5);
 
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(500,500);
+    renderer.setSize(innerWidth, innerHeight);
 
     renderer.render(scene, camera);
 
