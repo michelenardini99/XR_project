@@ -28,6 +28,10 @@ function initializeScene(){
     const title = document.getElementById("title");
     title.after(renderer.domElement);
 
+    document.body.appendChild(ARButton.createButton(
+        renderer,
+        { requiredFeatures: ["hit-test"] },
+      ));
 
     startScene();
 }
@@ -47,9 +51,7 @@ function startScene(){
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
     camera.position.set(1, 0, 5);
 
-    const button = ARButton.createButton(renderer);
-    console.log(button);
-    document.body.appendChild(button);
+    animate();
 
 }
 
@@ -60,7 +62,6 @@ function checkARSessionSupported() {
     if(isArSessionSupported){
         console.log("Ar supported");
         initializeScene();
-        animate();
     }else{
         console.log("AR not supported");
     }
@@ -71,5 +72,7 @@ function animate(){
 }
 
 function render(){
-    renderer.render(scene, camera);
+    if (renderer.xr.isPresenting) {
+        renderer.render(scene, camera);
+    }
 }
