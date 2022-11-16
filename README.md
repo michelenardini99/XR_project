@@ -36,3 +36,113 @@ Installazione da npm
 ```
 npm install three;
 ```
+In questo modo il pacchetto verrà installato e potrai importarlo nel tuo codice.
+
+```
+import * as THREE from 'three';
+```
+
+Installazione da CDN
+```
+import * as THREE from 'https://unpkg.com/three@0.146.0/build/three.module.js';
+```
+
+Primi passi
+
+Prima di tutto andremo a verificare che il dispositivo su cui stiamo attualmente lavorando supporta la tecnologia XR.
+Verificheremo ciò per non dare agli utenti che navigano su dispositivi non all'avanguardia una esperienza incompleta o non funzionante.
+```
+function checkARSessionSupported() {
+    const isArSessionSupported = navigator.xr 
+                                && navigator.xr.isSessionSupported
+                                && navigator.xr.isSessionSupported("immersive-ar");
+    //check if the device support AR session
+    if(isArSessionSupported){
+        console.log("Ar supported");
+        initializeScene();
+    }else{
+        console.log("AR not supported");
+    }
+}
+```
+
+Verificato ciò andremo a inizializzare la nostra scena, creando il render e il resto degli oggetti richiesti.
+```
+function initializeScene(){
+
+    const { devicePixelRatio, innerHeight, innerWidth } = window;
+
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    
+    //init renderer
+    renderer = new THREE.WebGLRenderer({alpha: true,
+                                            antialias: true});
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(devicePixelRatio);
+
+    //Provides access to the WebXR related interface of the renderer.
+    renderer.xr.setEnable=true;
+
+    container.appendChild(renderer.domElement);
+
+    //with ARButton, three.js will take care of set everything up and it will
+    //give us a button to initialize the session
+    document.body.appendChild(ARButton.createButton(
+        renderer,
+        { requiredFeatures: ["hit-test"] },
+      ));
+
+    startScene();
+}
+```
+
+Per creare l'oggetto renderer, andremo ad utilizzare il costruttore WebGLRenderer fornito da Three.js a cui passeremo
+due argomenti, alpha e antialis.
+Antialias ci permetterà di vedere i nostri oggetti renderizzati più puliti, mentre alpha, aseconda di come è settata 
+ci permette di utilizzare la trasparenza su qualsiasi cosa renderizzata.
+
+Chiamando ARButton.createButton,una funzione di supporto messa a disposizione da Three.js, non solo verrà creata un bottone
+ma Three.js si occuperà di impostare tutto.
+
+
+Ora passeremo alla creazione della vera e propria scena:
+```
+function startScene(){
+    scene = new THREE.Scene();
+
+    const boxGeometry=new THREE.BoxBufferGeometry(1,1,1);
+    const boxMaterial=new THREE.MeshBasicMaterial({color: 0xff0000});
+    const box = new THREE.Mesh(boxGeometry, boxMaterial);
+    box.position.z = -3;
+
+    scene.add(box);
+
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.02, 20 );
+    
+    const renderLoop = function render(){
+        if (renderer.xr.isPresenting) {
+            box.rotation.x+=0.01;
+            box.rotation.y+=0.01;
+            renderer.render(scene, camera);
+        }
+    }
+
+    renderer.setAnimationLoop(renderLoop);
+}
+```
+Iniziamo chiamando il costruttore Scene, che inizializza un nuovo oggetto scena vuoto. Questa scena è ciò che 
+ospiterà tutti i contenuti 3D nella nostra app.
+
+Successivamente, creiamo una PerspectiveCamera utilizzando il costruttore fornito da Three.js. Sebbene questa app utilizzi 
+anche la fotocamera del dispositivo reale che abbiamo ottenuto da ARButton, dobbiamo ancora creare un'istanza di una fotocamera che funzioni 
+come vista nella scena Three.js. 
+
+La prima cosa che facciamo è creare un BoxGeometry. Questa è una forma predefinita di Threejs, che ci dà un oggetto Geometry a forma di cubo che possiamo usare quando creiamo una mesh. 
+I tre parametri che passiamo definiranno la larghezza , l'altezza e la profondità di quel cubo, in quest'ordine.
+
+Dopodiche creiamo un MeshBasicMaterial per il nostro cubo. 
+Abbiamo bisogno di un materiale affinché il nostro cubo venga disegnato sulla scena.
+
+Infine, possiamo creare la mesh tramite il costruttore fornito da Three.js, passando il boxGeometry e il MeshMaterial, fatto ciò potremo aggiungere l'oggetto alla scena con scene.add().

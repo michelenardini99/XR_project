@@ -47,7 +47,7 @@ function startScene(){
 
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.02, 20 );
     
-    function render(){
+    const renderLoop = function render(){
         if (renderer.xr.isPresenting) {
             box.rotation.x+=0.01;
             box.rotation.y+=0.01;
@@ -55,7 +55,7 @@ function startScene(){
         }
     }
 
-    renderer.setAnimationLoop(render);
+    renderer.setAnimationLoop(renderLoop);
 
     
 
