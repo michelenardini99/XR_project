@@ -13,40 +13,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" type="text/javascript"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 		<h2 id="title" style="text-align: center;">Augmented reality with the  webXR Device api</h2>
-		<!-- <script src="js/three.js"></script> -->
-		<!-- <script>
-            //Scenes allow you to set up what and where is to be rendered by three.js. This is where you place objects, lights and cameras.
-			const scene = new THREE.Scene();
-
-            // projection mode is designed to mimic the way the human eye sees. It is the most common projection mode used for rendering a 3D scene.
-			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
-            //The WebGL renderer displays your beautifully crafted scenes using WebGL.
-			const renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-            renderer.setPixelRatio(devicePixelRatio);
-
-            renderer.xr.enabled = true;
-
-			document.body.appendChild( renderer.domElement );
-
-			const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			const cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
-
-			camera.position.z = 5;
-
-			function animate() {
-				requestAnimationFrame( animate );
-
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
-                renderer.render( scene, camera );
-			};
-
-			animate();
-		</script> -->
 		<video id='webcamVideo'></video>
 		<script src="js/main.js" type="module"></script>
 	</body>

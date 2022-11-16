@@ -25,9 +25,8 @@ function initializeScene(){
 
     container.appendChild(renderer.domElement);
 
-    const title = document.getElementById("title");
-    title.after(renderer.domElement);
-
+    //with ARButton, three.js will take care of set everything up and it will
+    //give us a button to initialize the session
     document.body.appendChild(ARButton.createButton(
         renderer,
         { requiredFeatures: ["hit-test"] },
@@ -38,20 +37,27 @@ function initializeScene(){
 
 function startScene(){
     scene = new THREE.Scene();
+
+    const boxGeometry=new THREE.BoxBufferGeometry(1,1,1);
+    const boxMaterial=new THREE.MeshBasicMaterial({color: 0xff0000});
+    const box = new THREE.Mesh(boxGeometry, boxMaterial);
+    box.position.z = -3;
+
+    scene.add(box);
+
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.02, 20 );
     
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({color: "#0000FF"});
+    function render(){
+        if (renderer.xr.isPresenting) {
+            box.rotation.x+=0.01;
+            box.rotation.y+=0.01;
+            renderer.render(scene, camera);
+        }
+    }
 
-    const cube = new THREE.Mesh(geometry, material);
+    renderer.setAnimationLoop(render);
 
-    scene.add(cube);
-    cube.position.set(0, 0, -2);
-    cube.rotation.set(0, Math.PI/4, 0);
-
-    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
-    camera.position.set(1, 0, 5);
-
-    animate();
+    
 
 }
 
@@ -59,20 +65,11 @@ function checkARSessionSupported() {
     const isArSessionSupported = navigator.xr 
                                 && navigator.xr.isSessionSupported
                                 && navigator.xr.isSessionSupported("immersive-ar");
+    //check if the device support AR session
     if(isArSessionSupported){
         console.log("Ar supported");
         initializeScene();
     }else{
         console.log("AR not supported");
-    }
-}
-
-function animate(){
-    renderer.setAnimationLoop(render);
-}
-
-function render(){
-    if (renderer.xr.isPresenting) {
-        renderer.render(scene, camera);
     }
 }
