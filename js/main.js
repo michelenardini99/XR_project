@@ -97,7 +97,6 @@ function render(timestamp, frame) {
 
                 planeMarker.visible = true;
                 planeMarker.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
-
             } else {
 
                 planeMarker.visible = false;
