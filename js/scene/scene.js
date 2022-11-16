@@ -13,7 +13,7 @@ export function createPlaneMarker(){
 }
 
 export function createMesh(matrixPosition){
-    const boxGeometry = new THREE.BoxBufferGeometry(0.2, 0.2, 0.2);
+    const boxGeometry = new THREE.BoxBufferGeometry(0.1, 0.1, 0.1);
     const colorMesh = new THREE.Color(0xffffff);
     colorMesh.setHex(Math.random() * 0xffffff);
     const meshMaterial = new THREE.MeshBasicMaterial({ color: colorMesh });
