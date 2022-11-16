@@ -146,3 +146,7 @@ Dopodiche creiamo un MeshBasicMaterial per il nostro cubo.
 Abbiamo bisogno di un materiale affinché il nostro cubo venga disegnato sulla scena.
 
 Infine, possiamo creare la mesh tramite il costruttore fornito da Three.js, passando il boxGeometry e il MeshMaterial, fatto ciò potremo aggiungere l'oggetto alla scena con scene.add().
+
+Per aggiungere un po' di interattività all'applicazione, dobbiamo implementare alcuni hit test di base.
+"Nella programmazione grafica computerizzata, l'hit testing ( hit detection , picking o pick correlation ) è il processo per determinare se un cursore controllato dall'utente (come un cursore del mouse o un punto di contatto su un'interfaccia touch-screen) interseca una data forma , linea o curva disegnata sullo schermo. Questo può essere fatto per i movimenti del puntatore o della forma sottostante, o limitato alla selezione avviata dall'utente, come un clic del mouse."
+ 
