@@ -19,7 +19,7 @@ const _settings = {
       trackingFactors: [0.2, 0.2, 0.2]
     },
   
-    NNPath: '../../../neuralNets/NN_KEYBOARD_5.json', //BEST
+    NNPath: '../neuralNets/NN_CAT_0.json', //BEST
     //NNPath: '../../../../../../../neuralNets/raw/objectTrackingKeyboards/ARKeyboard0_2020-10-05_5_5.json',
   
     cameraFov: 0,//WebARRocksMediaStreamAPIHelper.evaluate_verticalFoV(),  // vertical field of View of the 3D camera in degrees. set 75 for mobile, 55 for desktop
@@ -119,13 +119,13 @@ const _settings = {
   // Executed when WebAR.rocks.object is initialized and NN is loaded:
   function start(){
     const s = 0.5;
-    const debugCube = new THREE.Mesh(
-      new THREE.BoxGeometry(s,s,s),
-      new THREE.MeshNormalMaterial({wireframe: false})
-    );
-    debugCube.position.set(0, s/2, 0);
+
+    const planeGeometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({color: 0xff0000});
+    const plane = new THREE.Mesh(planeGeometry,material);
+    plane.position.set(0, s/2, 0);
     
-    WebARRocksObjectThreeHelper.add('KEYBOARD', debugCube);
+    WebARRocksObjectThreeHelper.add('CAT', plane);
     animate();
   }
   
