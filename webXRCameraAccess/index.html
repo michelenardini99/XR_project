@@ -10,6 +10,21 @@
 	</head>
 	<body>
 		<h2 id="title" style="text-align: center;">AR Raw camera Access</h2>
+		<img src="./Cat03.jpg" alt="" id="img">
 		<script src="./main.js" type="module"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+<!-- Load the coco-ssd model. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
+		<script>
+			const img = document.getElementById('img');
+
+			// Load the model.
+			cocoSsd.load().then(model => {
+			// detect objects in the image.
+			model.detect(img).then(predictions => {
+				console.log('Predictions: ', predictions);
+			});
+			});
+		</script>
 	</body>
 </html>
