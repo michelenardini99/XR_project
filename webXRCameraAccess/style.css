@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+  }
+  #c {
+    width: 100%;  /* let our container decide our size */
+    height: 100%;
+    display: block;
+  }
+  #container {
+    position: relative;  /* makes this the origin of its children */
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  #labels {
+    position: absolute;  /* let us position ourself inside the container */
+    left: 0;             /* make our position the top left of the container */
+    top: 0;
+    color: white;
+  }
+
+  #row{
+    padding: 5%;
+  }
+
+  #titleRow, #whatCanYouDo{
+    color:darkblue;
+    font-weight: 10px;
+  }
+
+  #img-scene{
+    border-radius: 30px;
+  }
+
+
+  #card-light{
+    width: 200px;
+    background: rgba(221, 221, 221, .5);
+    border-radius: 20px;
+    color: white;
+    border-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+  }
+
+  #img-light{
+    filter: brightness(100%);
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  #brightValue, #ballastValue{
+    font-size: 30px;
+  }
