@@ -24,7 +24,7 @@ class ARRawAccessButton {
 
 
 		init();
-		initMarker();
+		//initMarker();
 
 		function init(/*startX, startY*/){
 			client = new MqttClient();
@@ -41,27 +41,21 @@ class ARRawAccessButton {
 
 		}
 
-		function initMarker(){
+		/* function initMarker(){
 			markers[0] = new Marker('./asset/pattern-marker.patt');
 			markers[1] = new Marker('./asset/alexide-marker.patt');
 			predict()
 		}
 
 		function predict(imgPred){
-			var param = new ARCameraParam();
+			var param = new ARCameraParam('Data/camera_para.dat');
 			let count=0;
 		  
 			param.onload = function () {
 			  var img = document.getElementById('imgTest');
 			  var ar = new ARController(img, param);
 		  
-			  // Set pattern detection mode to detect both pattern markers and barcode markers.
-			  // This is more error-prone than detecting only pattern markers (default) or only barcode markers.
-			  //
-			  // For barcode markers, use artoolkit.AR_MATRIX_CODE_DETECTION
-			  // For pattern markers, use artoolkit.AR_TEMPLATE_MATCHING_COLOR
-			  //
-			  /* ar.setPatternDetectionMode(artoolkit.AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX);*/
+
 		  
 			  ar.addEventListener('markerNum', function (ev) {
 				console.log('got markers', markerNum);
@@ -81,9 +75,7 @@ class ARRawAccessButton {
 			 
 			  
 		  };
-		  	console.log(param)
-			param.src = 'https://cdn.jsdelivr.net/npm/artoolkit5-js@0.0.4/data/camera_para.dat';
-		}
+		} */
 
 		function onSelectStart( event ) {
 

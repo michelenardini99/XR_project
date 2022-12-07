@@ -1,5 +1,28 @@
 {
   "dependencies": {
-    "three": "^0.146.0"
-  }
+    "-": "^0.0.1",
+    "@seregpie/three.text-plane": "^1.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "g": "^2.0.1",
+    "html2canvas": "^1.4.1",
+    "jsartoolkit5": "^0.0.4",
+    "mqtt": "^4.3.7",
+    "tfjs-yolo-tiny": "^1.0.1",
+    "three": "^0.146.0",
+    "three-css2drender": "^1.0.0",
+    "three-mesh-ui": "^6.5.2",
+    "three-spritetext": "^1.6.5",
+    "threex": "^1.0.0",
+    "troika-three-text": "^0.46.4"
+  },
+  "name": "michele.nardini",
+  "description": "XR_Project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "michele nardini",
+  "license": "ISC"
 }

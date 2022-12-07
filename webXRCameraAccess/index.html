@@ -62,5 +62,35 @@
 		<script src="./js/main.js" type="module"></script>
 		<script src="../node_modules/html2canvas/dist/html2canvas.js"></script>
 		<script src="../node_modules/jsartoolkit5/build/artoolkit.min.js"></script>
+		<script>
+			var param = new ARCameraParam('Data/camera_para.dat');
+			let count=0;
+		  
+			param.onload = function () {
+			  var img = document.getElementById('imgTest');
+			  var ar = new ARController(img, param);
+		  
+			  // Set pattern detection mode to detect both pattern markers and barcode markers.
+			  // This is more error-prone than detecting only pattern markers (default) or only barcode markers.
+			  //
+			  // For barcode markers, use artoolkit.AR_MATRIX_CODE_DETECTION
+			  // For pattern markers, use artoolkit.AR_TEMPLATE_MATCHING_COLOR
+			  //
+			  /* ar.setPatternDetectionMode(artoolkit.AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX);*/
+		  
+			  ar.addEventListener('markerNum', function (ev) {
+				console.log('got markers', markerNum);
+			  });
+			  ar.addEventListener('getMarker', function (ev) {
+				console.log('found marker?', ev);
+			  });
+			  ar.loadMarker('./asset/pattern-marker.patt', function (marker) {
+
+				});
+				ar.loadMarker('./asset/alexide-marker.patt', function (marker) {
+					ar.process(img);
+				});
+			}
+		</script>
 	</body>
 </html>
